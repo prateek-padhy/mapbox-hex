@@ -1,11 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import mapboxgl from "mapbox-gl";
 import rotterdamGeojson from "../static/rotterdam-geojson.json";
-
-// @ts-expect-error
-// eslint-disable-next-line import/no-webpack-loader-syntax
-import mapboxgl from "!mapbox-gl";
 
 mapboxgl.accessToken =
   "pk.eyJ1Ijoic3dpc3NyZXBjc29sdXRpb25zIiwiYSI6ImNqemJjYzNweDAwbjczZW1va3hzdHc3bXUifQ.z-CswVAleuw64iwnZkOgzg";
