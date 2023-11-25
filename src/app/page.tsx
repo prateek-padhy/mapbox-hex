@@ -3,7 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import rotterdamGeojson from "../static/rotterdam-geojson.json";
 
-// @ts-ignore
+// @ts-expect-error
+// eslint-disable-next-line import/no-webpack-loader-syntax
 import mapboxgl from "!mapbox-gl";
 
 mapboxgl.accessToken =
