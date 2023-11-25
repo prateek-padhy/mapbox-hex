@@ -8,14 +8,14 @@ mapboxgl.accessToken =
   "pk.eyJ1Ijoic3dpc3NyZXBjc29sdXRpb25zIiwiYSI6ImNqemJjYzNweDAwbjczZW1va3hzdHc3bXUifQ.z-CswVAleuw64iwnZkOgzg";
 
 export default function Home() {
-  const mapContainer = useRef(null);
+  const mapContainer = useRef<HTMLDivElement>(null);
   const map = useRef<any>(null);
   const [lng, setLng] = useState(4.47917);
   const [lat, setLat] = useState(51.9225);
   const [zoom, setZoom] = useState(8);
 
   useEffect(() => {
-    if (map.current) return; // initialize map only once
+    if (!map.current || !mapContainer.current) return; // initialize map only once
 
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
