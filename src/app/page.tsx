@@ -15,7 +15,7 @@ export default function Home() {
   const [zoom, setZoom] = useState(8);
 
   useEffect(() => {
-    if (!map.current || !mapContainer.current) return; // initialize map only once
+    if (map.current || !mapContainer.current) return;
 
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
