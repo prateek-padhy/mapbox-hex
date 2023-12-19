@@ -1,6 +1,6 @@
 "use client";
 
-import { use, useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { featureToH3Set } from "geojson2h3";
 import { FeatureCollection, GeoJsonProperties, Geometry } from "geojson";
 import { cellToBoundary } from "h3-js";
@@ -52,7 +52,7 @@ export default function Home() {
     if (zoom > 11 && zoom <= 13) resolution = 8;
     if (zoom > 13) resolution = 9;
 
-    if (resolution <= currentHexResolution) return;
+    if (resolution === currentHexResolution) return;
 
     setCurrentHexResolution(resolution);
   }, [zoom, currentHexResolution]);
@@ -68,7 +68,14 @@ export default function Home() {
   }, [map, currentHexResolution]);
 
   useEffect(() => {
-    if (!map.current || !locationSourceGeoJson) return;
+    if (!map.current || !locationSourceGeoJson?.features?.length) return;
+
+    const sourceLayer = map.current.getSource("source:rotterdam");
+
+    if (sourceLayer) {
+      sourceLayer.setData(locationSourceGeoJson);
+      return;
+    }
 
     map.current.on("load", () => {
       map.current.addSource("source:rotterdam", {
@@ -104,8 +111,7 @@ export default function Home() {
       setLat(map.current.getCenter().lat.toFixed(4));
       setZoom(map.current.getZoom().toFixed(2));
     });
-  }),
-    [locationSourceGeoJson];
+  }, [locationSourceGeoJson]);
 
   return (
     <main id="map">
