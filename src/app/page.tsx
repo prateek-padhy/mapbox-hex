@@ -77,6 +77,16 @@ export default function Home() {
       return;
     }
 
+    map.current.addControl(
+      new mapboxgl.GeolocateControl({
+        positionOptions: {
+          enableHighAccuracy: true,
+        },
+        trackUserLocation: true,
+        showUserHeading: true,
+      })
+    );
+
     map.current.on("load", () => {
       map.current.addSource("source:rotterdam", {
         type: "geojson",
